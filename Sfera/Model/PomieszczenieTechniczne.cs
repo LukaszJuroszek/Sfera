@@ -1,9 +1,7 @@
 ﻿namespace Sfera.Model
 {
-    public class PomieszczenieTechniczne
+    public class PomieszczenieTechniczne : Korytarz
     {
-        public int Id { get; set; }
         public Korytarz Korytarz { get; set; }
-
     }
 }

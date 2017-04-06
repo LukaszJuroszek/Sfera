@@ -12,9 +12,8 @@ namespace Sfera.Model
         ArtykulySpozywcze,
         DomIWnetrzne
     }
-    public class ObiektDoWynajecia
+    public class ObiektDoWynajecia : Korytarz
     {
-        public int Id { get; set; }
         public Korytarz Korytarz { get; set; }
         public TypDzialalnosci TypDzialalnosci { get; set; }
         public decimal CenaWynajmu { get; set; }
