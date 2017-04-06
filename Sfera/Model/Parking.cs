@@ -1,6 +1,6 @@
 ﻿namespace Sfera.Model
 {
-    public  class Parking : Obiekt
+    public  class Parking
     {
         public int LiczbaMiejscParkingowych { get; set; }
     }

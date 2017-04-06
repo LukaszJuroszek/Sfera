@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Sfera.Model
 {
-    public class Korytarz : Poziom
+    public class Korytarz 
     {
+        public ICollection<ObiektDoWynajecia> ObiektyDoWynajecia{ get; set; }
+        public ICollection<PomieszczenieTechniczne> PomieszczeniaTechniczne{ get; set; }
+        public Korytarz()
+        {
+            ObiektyDoWynajecia = new HashSet<ObiektDoWynajecia>();
+            PomieszczeniaTechniczne = new HashSet<PomieszczenieTechniczne>();
+        }
     }
 }

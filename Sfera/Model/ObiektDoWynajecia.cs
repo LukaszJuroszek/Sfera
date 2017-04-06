@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sfera.Model
 {
@@ -11,11 +12,20 @@ namespace Sfera.Model
         ArtykulySpozywcze,
         DomIWnetrzne
     }
-    public class ObiektDoWynajecia : Korytarz
+    public class ObiektDoWynajecia
     {
         public TypDzialalnosci TypDzialalnosci { get; set; }
         public decimal CenaWynajmu { get; set; }
         public DateTime DataPoczatkuWynajmu { get; set; }
         public DateTime? DataZakonczeniaWynajmu { get; set; }
+        public ICollection<Pomieszczenie> Pomieszczenia{ get; set; }
+        public ICollection<Stand> Standy { get; set; }
+        public ObiektDoWynajecia()
+        {
+            Pomieszczenia = new HashSet<Pomieszczenie>();
+            Standy = new HashSet<Stand>();
+        }
+
+
     }
 }
