@@ -17,6 +17,26 @@ namespace Sfera
             {
                 db.Database.Log = Console.WriteLine;
                 db.Database.CreateIfNotExists();
+                db.Obiekty.Add(new Obiekt
+                {
+                    Nazwa = "SferaI",
+                    NazwaTechniczna = "SI",
+                    Parkingi = new List<Parking>
+                    {
+                        new Parking {LiczbaMiejscParkingowych=1 },
+                        new Parking {LiczbaMiejscParkingowych=2 },
+                        new Parking {LiczbaMiejscParkingowych=3 }
+                    },
+                    Poziomy = new List<Poziom>
+                    {
+                        new Poziom { PowierzchniaCalkowita = 1000.0,
+                            Korytarze = new List<Korytarz>
+                            {
+                            }
+                        }
+                    }
+
+                });
             }
         }
     }
