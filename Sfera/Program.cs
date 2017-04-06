@@ -10,11 +10,13 @@ namespace Sfera
     {
         static void Main(string[] args)
         {
+            
             var dataPath = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", dataPath);
             using (var db = new SferaContext())
             {
                 db.Database.CreateIfNotExists();
+                db.Database.Log = Console.WriteLine;
                 //Add(db);
                 var poms = from pom in db.Pomieszczenia
                           where pom.TypPomieszczenia == TypPomieszczenia.Pomieszczenie 
@@ -32,6 +34,14 @@ namespace Sfera
                     Console.WriteLine($"{item.Nazwa}  {item.TypPomieszczenia}");
                 }
                     Console.WriteLine(standy.Count());
+                //update first stand with orher name
+                var selected = db.Standy.FirstOrDefault();
+                selected.Nazwa = "Inna Nazwa niż zwykle";
+                db.SaveChanges();
+                //delete Obiekt with id 2
+                var toRemove = new Parking { Id = 3 };
+                db.Entry(toRemove).State = EntityState.Deleted;
+                db.SaveChanges();
             }
         }
         public static void Add(SferaContext db)
