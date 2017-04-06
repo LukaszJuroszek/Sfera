@@ -16,7 +16,7 @@ namespace Sfera
             using (var db = new SferaContext())
             {
                 db.Database.Log = Console.WriteLine;
-
+                db.Database.CreateIfNotExists();
             }
         }
     }

@@ -14,12 +14,14 @@ namespace Sfera.Model
     }
     public class ObiektDoWynajecia
     {
+        public int Id { get; set; }
+        public Korytarz Korytarz { get; set; }
         public TypDzialalnosci TypDzialalnosci { get; set; }
         public decimal CenaWynajmu { get; set; }
         public DateTime DataPoczatkuWynajmu { get; set; }
         public DateTime? DataZakonczeniaWynajmu { get; set; }
-        public ICollection<Pomieszczenie> Pomieszczenia{ get; set; }
-        public ICollection<Stand> Standy { get; set; }
+        public virtual ICollection<Pomieszczenie> Pomieszczenia{ get; set; }
+        public virtual ICollection<Stand> Standy { get; set; }
         public ObiektDoWynajecia()
         {
             Pomieszczenia = new HashSet<Pomieszczenie>();
