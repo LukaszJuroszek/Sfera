@@ -1,6 +1,7 @@
 ﻿using Sfera.Model;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Sfera
 {
@@ -10,39 +11,76 @@ namespace Sfera
         {
             var dataPath = AppDomain.CurrentDomain.BaseDirectory;
             AppDomain.CurrentDomain.SetData("DataDirectory", dataPath);
+
             using (var db = new SferaContext())
             {
-                db.Database.Log = Console.WriteLine;
                 db.Database.CreateIfNotExists();
+                Add(db);
+            }
+
+        }
+        public static void Add(SferaContext context)
+        {
+            using (var db = context)
+            {
                 var parkingi = new List<Parking> {
                     new Parking { LiczbaMiejscParkingowych=100,Nazwa="Parking Gora",NazwaTechniczna="PG"},
                     new Parking { LiczbaMiejscParkingowych=100,Nazwa="Parking Dol",NazwaTechniczna="Pd"}
                 };
-                var obiektyDoWynajecia = new List<ObiektDoWynajecia>
+                var obiekty = new ObiektDoWynajecia
                 {
-                    new ObiektDoWynajecia{
-                        Pomieszczenia= new List<Pomieszczenie>
-                        {
-                            new Pomieszczenie{Nazwa="Biedronka",TypDzialalnosci=TypDzialalnosci.Gastronomia,DataPoczatkuWynajmu=DateTime.Now,,CenaWynajmu=100},
-                            new Pomieszczenie{Nazwa="EuroRTV",TypDzialalnosci=TypDzialalnosci.AGD,DataPoczatkuWynajmu=DateTime.Now.AddDays(-93),CenaWynajmu=100},
-                            new Pomieszczenie{Nazwa="McDonald",TypDzialalnosci=TypDzialalnosci.AGD,DataPoczatkuWynajmu=DateTime.Now.AddDays(-93),CenaWynajmu=100},
-                        },
-                        Standy= new List<Stand>{
-                            new Stand { Nazwa= "Reklama EuroRTV",CenaWynajmu=10},
-                            new Stand { Nazwa= "Reklama McDonald",CenaWynajmu=10},
-                        }
+                    Pomieszczenia = new List<Pomieszczenie>
+                    {
+                     new Pomieszczenie
+                     { Nazwa ="Biedronka",TypDzialalnosci=TypDzialalnosci.Gastronomia,DataPoczatkuWynajmu=DateTime.Now,CenaWynajmu=100},
+                     new Pomieszczenie
+                     {Nazwa ="McDonald",TypDzialalnosci=TypDzialalnosci.Gastronomia,DataPoczatkuWynajmu=DateTime.Now,CenaWynajmu=100},
+                     new Pomieszczenie
+                     {Nazwa ="EuroRTV",TypDzialalnosci=TypDzialalnosci.AGD,DataPoczatkuWynajmu=DateTime.Now,CenaWynajmu=100},
+                     new Pomieszczenie
+                      {Nazwa ="Helios",TypDzialalnosci=TypDzialalnosci.Rozrywka,DataPoczatkuWynajmu=DateTime.Now,CenaWynajmu=100}
+                     },
+                    Standy = new List<Stand>{
+                            new Stand { Nazwa= "Reklama EuroRTV"},
+                            new Stand { Nazwa= "Reklama Helios"},
+                            new Stand { Nazwa= "Reklama Biedronka"},
+                            new Stand { Nazwa= "Reklama McDonald"}
                     }
                 };
-                var korytarze = new List<Korytarz>
-                {
-                    new Korytarz{Nazwa="Korytarz Glowny",NazwaTechniczna="KG",ObiektyDoWynajecia=obiektyDoWynajecia},
-                    new Korytarz{Nazwa="Korytarz Poboczny",NazwaTechniczna="KB",ObiektyDoWynajecia=obiektyDoWynajecia}
-                };
+
                 var poziomy = new List<Poziom>
-                {
-                    new Poziom{Nazwa="Pierwsze",NazwaTechniczna="P1",PowierzchniaCalkowita=1000, Korytarze=korytarze},
-                    new Poziom{Nazwa="Drugie",NazwaTechniczna="P2",PowierzchniaCalkowita=1000, Korytarze=korytarze},
-                    new Poziom{Nazwa="Trzecie",NazwaTechniczna="P3",PowierzchniaCalkowita=1000, Korytarze=korytarze}
+                        {
+                    new Poziom
+                    {
+                        Nazwa = "Pierwsze",NazwaTechniczna = "P1",PowierzchniaCalkowita = 1000,
+                        Korytarze = new List<Korytarz>
+                        {
+                            new Korytarz
+                            {
+                                Nazwa ="Korytarz Glowny",NazwaTechniczna="KG",ObiektyDoWynajecia =new List<ObiektDoWynajecia>
+                                    {
+                                        obiekty,obiekty,obiekty
+                                    }
+                             },
+                         }
+                    },
+                };
+                var poziomy2 = new List<Poziom>
+                        {
+                    new Poziom
+                    {
+                        Nazwa = "Pierwsze",NazwaTechniczna = "P1",PowierzchniaCalkowita = 1000,
+                        Korytarze = new List<Korytarz>
+                        {
+                            new Korytarz
+                            {
+                                Nazwa ="Korytarz Glowny",NazwaTechniczna="KG",ObiektyDoWynajecia =new List<ObiektDoWynajecia>
+                                    {
+                                        obiekty,obiekty,obiekty
+                                    }
+                             },
+                         }
+                    },
                 };
                 db.Obiekty.Add(new Obiekt
                 {
@@ -53,12 +91,12 @@ namespace Sfera
                 });
                 db.Obiekty.Add(new Obiekt
                 {
-                    Nazwa = "Sfera2",
-                    NazwaTechniczna = "S2",
-                    Parkingi = parkingi,
-                    Poziomy = poziomy
+                    Nazwa = "SferaII",
+                    NazwaTechniczna = "SII",
+                    Poziomy = poziomy2
                 });
                 db.SaveChanges();
+                Console.Read();
             }
         }
     }

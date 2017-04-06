@@ -17,7 +17,7 @@ namespace Sfera.Model
         public Korytarz Korytarz { get; set; }
         public TypDzialalnosci TypDzialalnosci { get; set; }
         public decimal CenaWynajmu { get; set; }
-        public DateTime DataPoczatkuWynajmu { get; set; }
+        public DateTime? DataPoczatkuWynajmu { get; set; }
         public DateTime? DataZakonczeniaWynajmu { get; set; }
         public virtual ICollection<Pomieszczenie> Pomieszczenia{ get; set; }
         public virtual ICollection<Stand> Standy { get; set; }
